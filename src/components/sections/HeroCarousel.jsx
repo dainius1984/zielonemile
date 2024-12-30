@@ -12,7 +12,7 @@ const HeroCarousel = ({
     {
       id: 2,
       image: "/img/main/2.jpg",
-      title: "Nowoczesne Ogrody",
+      title: "Nowoczesnew Ogrody",
       subtitle: "Harmonia z Naturą"
     },
     {
