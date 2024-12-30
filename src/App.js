@@ -2,6 +2,7 @@ import React from "react";
 import TopNavBar from "./components/sections/TopNavBar";
 import Header from "./components/sections/Header";
 import HeroCarousel from "./components/sections/HeroCarousel";
+import AboutSection from "./components/sections/About";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <TopNavBar />
       <Header />
       <HeroCarousel />
+      <AboutSection />
     </>
   );
 }
