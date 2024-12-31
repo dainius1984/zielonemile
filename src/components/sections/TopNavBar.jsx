@@ -22,7 +22,7 @@ const TopNavBar = () => {
         <div className="flex gap-5">
           <span className="flex items-center">
             <FiPhone className="mr-2 text-yellow-300" /> {/* Added accent color */}
-            608 637 118
+            111 222 333
           </span>
           <span className="flex items-center">
             <FiMail className="mr-2 text-yellow-300" /> {/* Added accent color */}

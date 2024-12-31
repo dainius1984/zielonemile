@@ -12,7 +12,7 @@ const HeroCarousel = ({
     {
       id: 2,
       image: "/img/main/2.jpg",
-      title: "Nowoczesnew Ogrody",
+      title: "Nowoczesne Ogrody",
       subtitle: "Harmonia z Naturą"
     },
     {
@@ -77,30 +77,32 @@ const HeroCarousel = ({
               className="w-full h-full object-cover"
             />
             
-            {/* Slide Content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                {slide.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-white mb-8">
-                {slide.subtitle}
-              </p>
+            {/* Slide Content - Restructured for better mobile layout */}
+            <div className="absolute inset-0 flex flex-col items-center justify-between py-16 px-4">
+              <div className="w-full text-center mt-8">
+                <h1 className="text-3xl md:text-6xl font-bold text-white mb-4">
+                  {slide.title}
+                </h1>
+                <p className="text-lg md:text-2xl text-white mb-8">
+                  {slide.subtitle}
+                </p>
+              </div>
               
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* CTAs - Moved to bottom for consistent mobile placement */}
+              <div className="w-full max-w-md flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <a
                   href={primaryCTALink}
-                  className="px-8 py-3 bg-yellow-400 text-gray-800 rounded-full 
+                  className="px-6 py-3 bg-yellow-400 text-gray-800 rounded-full 
                     hover:bg-yellow-500 transition-colors duration-300 
-                    font-semibold text-lg"
+                    font-semibold text-base md:text-lg text-center"
                 >
                   Zobacz realizacje
                 </a>
                 <a
                   href={secondaryCTALink}
-                  className="px-8 py-3 border-2 border-yellow-400 text-yellow-400 
+                  className="px-6 py-3 border-2 border-yellow-400 text-yellow-400 
                     rounded-full hover:bg-yellow-400 hover:text-gray-800 
-                    transition-colors duration-300 font-semibold text-lg"
+                    transition-colors duration-300 font-semibold text-base md:text-lg text-center"
                 >
                   Skontaktuj się z nami
                 </a>
@@ -110,33 +112,33 @@ const HeroCarousel = ({
         ))}
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 
-          bg-black/30 hover:bg-black/50 rounded-full transition-colors 
-          duration-300 text-white"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 
-          bg-black/30 hover:bg-black/50 rounded-full transition-colors 
-          duration-300 text-white"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={24} />
-      </button>
+      {/* Navigation Arrows - Adjusted for better mobile visibility */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 pointer-events-none">
+        <button
+          onClick={prevSlide}
+          className="p-2 bg-black/30 hover:bg-black/50 rounded-full 
+            transition-colors duration-300 text-white pointer-events-auto"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="p-2 bg-black/30 hover:bg-black/50 rounded-full 
+            transition-colors duration-300 text-white pointer-events-auto"
+          aria-label="Next slide"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
 
       {/* Pagination Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors duration-300
+            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-colors duration-300
               ${index === currentSlide ? 'bg-yellow-400' : 'bg-white/50 hover:bg-white'}`}
             aria-label={`Go to slide ${index + 1}`}
           />
