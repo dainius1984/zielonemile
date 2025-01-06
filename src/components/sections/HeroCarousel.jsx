@@ -77,9 +77,9 @@ const HeroCarousel = ({
               className="w-full h-full object-cover"
             />
             
-            {/* Slide Content - Restructured for better mobile layout */}
-            <div className="absolute inset-0 flex flex-col items-center justify-between py-16 px-4">
-              <div className="w-full text-center mt-8">
+{/* Slide Content - Centered with proper spacing */}
+<div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+              <div className="w-full text-center mb-8">
                 <h1 className="text-3xl md:text-6xl font-bold text-white mb-4">
                   {slide.title}
                 </h1>
@@ -88,8 +88,8 @@ const HeroCarousel = ({
                 </p>
               </div>
               
-              {/* CTAs - Moved to bottom for consistent mobile placement */}
-              <div className="w-full max-w-md flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              {/* CTAs - Centered in viewport */}
+              <div className="w-full max-w-md flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href={primaryCTALink}
                   className="px-6 py-3 bg-yellow-400 text-gray-800 rounded-full 
