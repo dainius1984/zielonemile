@@ -9,25 +9,33 @@ const NewHeader = () => {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          setIsScrolled(currentScrollY > 50);
 
-      // Hide navbar when scrolling down, show when scrolling up
-      if (currentScrollY > 100) {
-        if (currentScrollY > lastScrollY.current) {
-          // Scrolling down
-          setIsVisible(false);
-        } else {
-          // Scrolling up
-          setIsVisible(true);
-        }
-      } else {
-        // Always show at top
-        setIsVisible(true);
+          // Hide navbar when scrolling down, show when scrolling up
+          if (currentScrollY > 100) {
+            if (currentScrollY > lastScrollY.current && currentScrollY - lastScrollY.current > 5) {
+              // Scrolling down (with threshold to prevent jitter)
+              setIsVisible(false);
+            } else if (currentScrollY < lastScrollY.current && lastScrollY.current - currentScrollY > 5) {
+              // Scrolling up (with threshold to prevent jitter)
+              setIsVisible(true);
+            }
+          } else {
+            // Always show at top
+            setIsVisible(true);
+          }
+
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -43,25 +51,51 @@ const NewHeader = () => {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
+      initial={{ y: -100, opacity: 0, scale: 0.95 }}
       animate={{ 
         y: isVisible ? 0 : -100,
-        opacity: isVisible ? 1 : 0
+        opacity: isVisible ? 1 : 0,
+        scale: isVisible ? 1 : 0.95
       }}
       transition={{ 
         type: "spring",
-        stiffness: 300,
-        damping: 30,
+        stiffness: 400,
+        damping: 35,
         mass: 0.5,
-        opacity: { duration: 0.15 }
+        opacity: { 
+          duration: 0.2,
+          ease: [0.4, 0, 0.2, 1]
+        },
+        scale: {
+          duration: 0.25,
+          ease: [0.4, 0, 0.2, 1]
+        }
       }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 ${
         isScrolled
-          ? 'bg-cream/95 backdrop-blur-md shadow-lg'
-          : 'bg-cream/80 backdrop-blur-sm'
+          ? 'bg-cream/95 shadow-lg'
+          : 'bg-cream/80 shadow-sm'
       }`}
+      style={{
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0)', // Force hardware acceleration
+        WebkitBackfaceVisibility: 'hidden', // Prevent flickering on mobile
+        backfaceVisibility: 'hidden',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'blur(8px)',
+        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'blur(8px)',
+        transition: 'backdrop-filter 0.3s ease, box-shadow 0.3s ease',
+      }}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.nav 
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        animate={{
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{
+          duration: 0.2,
+          ease: [0.4, 0, 0.2, 1]
+        }}
+      >
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <motion.a
@@ -188,7 +222,7 @@ const NewHeader = () => {
             ))}
           </div>
         </motion.div>
-      </nav>
+      </motion.nav>
     </motion.header>
   );
 };
