@@ -1,17 +1,21 @@
 import React from "react";
-import TopNavBar from "./components/sections/TopNavBar";
-import Header from "./components/sections/Header";
-import HeroCarousel from "./components/sections/HeroCarousel";
-import AboutSection from "./components/sections/About";
+import NewHeader from "./components/sections/NewHeader";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Gallery from "./components/sections/Gallery";
+import Features from "./components/sections/Features";
+import Contact from "./components/sections/Contact";
 
 function App() {
   return (
-    <>
-      <TopNavBar />
-      <Header />
-      <HeroCarousel />
-      <AboutSection />
-    </>
+    <div className="min-h-screen bg-cream">
+      <NewHeader />
+      <Hero />
+      <About />
+      <Gallery />
+      <Features />
+      <Contact />
+    </div>
   );
 }
 
