@@ -1,16 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, Menu, X } from 'lucide-react';
 
 const NewHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      // Hide navbar when scrolling down, show when scrolling up
+      if (currentScrollY > 100) {
+        if (currentScrollY > lastScrollY.current) {
+          // Scrolling down
+          setIsVisible(false);
+        } else {
+          // Scrolling up
+          setIsVisible(true);
+        }
+      } else {
+        // Always show at top
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,53 +44,102 @@ const NewHeader = () => {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      animate={{ 
+        y: isVisible ? 0 : -100,
+        opacity: isVisible ? 1 : 0
+      }}
+      transition={{ 
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        mass: 0.5,
+        opacity: { duration: 0.15 }
+      }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-cream/95 backdrop-blur-md shadow-sm'
+          ? 'bg-cream/95 backdrop-blur-md shadow-lg'
           : 'bg-cream/80 backdrop-blur-sm'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.div
+          <motion.a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 cursor-pointer group"
           >
-            <Leaf className="w-6 h-6 text-forest-green" />
-            <span className="text-2xl font-serif font-bold text-forest-green">
+            <motion.div
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
+              <Leaf className="w-6 h-6 text-forest-green group-hover:text-mustard-gold transition-colors duration-300" />
+            </motion.div>
+            <span className="text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300">
               Zielone Tarasy
             </span>
-          </motion.div>
+          </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.label}
                 href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.querySelector(item.href);
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
-                whileHover={{ y: -2 }}
-                className="text-forest-green font-medium hover:text-mustard-gold transition-colors duration-300"
+                whileHover={{ y: -3 }}
+                className="relative text-forest-green font-medium transition-colors duration-300 group py-2 px-3 rounded-lg"
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                <motion.span
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-mustard-gold origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.span
+                  className="absolute inset-0 bg-mustard-gold/10 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
+                  transition={{ duration: 0.2 }}
+                />
               </motion.a>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-forest-green"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="md:hidden p-2 text-forest-green hover:text-mustard-gold transition-colors duration-300 rounded-lg hover:bg-cream/50"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <motion.div
+              animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.div>
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
@@ -80,19 +149,42 @@ const NewHeader = () => {
             height: isMobileMenuOpen ? 'auto' : 0,
             opacity: isMobileMenuOpen ? 1 : 0,
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           className="md:hidden overflow-hidden"
         >
-          <div className="py-4 space-y-3">
-            {navItems.map((item) => (
-              <a
+          <div className="py-4 space-y-2">
+            {navItems.map((item, index) => (
+              <motion.a
                 key={item.label}
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-forest-green font-medium hover:text-mustard-gold transition-colors duration-300 py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                  const element = document.querySelector(item.href);
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ 
+                  opacity: isMobileMenuOpen ? 1 : 0,
+                  x: isMobileMenuOpen ? 0 : -20
+                }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.98 }}
+                className="block text-forest-green font-medium hover:text-mustard-gold 
+                  transition-colors duration-300 py-3 px-4 rounded-lg hover:bg-cream/50 
+                  border-l-2 border-transparent hover:border-mustard-gold"
               >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
           </div>
         </motion.div>
