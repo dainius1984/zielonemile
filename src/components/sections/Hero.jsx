@@ -45,16 +45,16 @@ const Hero = () => {
           className={`w-full h-full object-cover transition-opacity duration-500 ${
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
-          poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80"
+          poster="/img/main/1.jpg"
         >
           <source
-            src="https://videos.pexels.com/video-files/3045163/3045163-hd_1920_1080_30fps.mp4"
+            src="/video/hero.mp4"
             type="video/mp4"
           />
         </video>
         {/* Fallback image if video fails to load */}
         <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80"
+          src="/img/main/1.jpg"
           alt="Terasy"
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
             videoLoaded ? 'opacity-0' : 'opacity-100'
