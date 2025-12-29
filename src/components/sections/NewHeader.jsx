@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Leaf, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const NewHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,12 +108,13 @@ const NewHeader = () => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <motion.div
-              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            <motion.img
+              src="/img/logo/logo.png"
+              alt="Zielone Mile Logo"
+              className="h-12 w-auto object-contain transition-all duration-300 rounded-lg"
+              whileHover={{ rotate: [0, -5, 5, -5, 0] }}
               transition={{ duration: 0.5 }}
-            >
-              <Leaf className="w-6 h-6 text-forest-green group-hover:text-mustard-gold transition-colors duration-300" />
-            </motion.div>
+            />
             <span className="text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300">
               Zielone Mile
             </span>
