@@ -51,52 +51,52 @@ const NewHeader = () => {
 
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0, scale: 0.95 }}
+      initial={{ y: -100, opacity: 0 }}
       animate={{ 
         y: isVisible ? 0 : -100,
         opacity: isVisible ? 1 : 0,
-        scale: isVisible ? 1 : 0.95
       }}
       transition={{ 
         type: "spring",
-        stiffness: 400,
-        damping: 35,
-        mass: 0.5,
+        stiffness: 300,
+        damping: 30,
+        mass: 0.8,
         opacity: { 
-          duration: 0.2,
-          ease: [0.4, 0, 0.2, 1]
+          duration: 0.4,
+          ease: [0.25, 0.1, 0.25, 1] // Smooth ease-in-out
         },
-        scale: {
-          duration: 0.25,
-          ease: [0.4, 0, 0.2, 1]
+        y: {
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+          mass: 0.8
         }
       }}
-      className={`fixed top-0 left-0 right-0 z-50 ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
         isScrolled
-          ? 'bg-cream/95 shadow-lg'
-          : 'bg-cream/80 shadow-sm'
+          ? 'bg-cream/98 backdrop-blur-xl shadow-xl border-forest-green/10'
+          : 'bg-cream/85 backdrop-blur-lg shadow-md border-forest-green/5'
       }`}
       style={{
         willChange: 'transform, opacity',
         transform: 'translateZ(0)', // Force hardware acceleration
         WebkitBackfaceVisibility: 'hidden', // Prevent flickering on mobile
         backfaceVisibility: 'hidden',
-        backdropFilter: isScrolled ? 'blur(12px)' : 'blur(8px)',
-        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'blur(8px)',
-        transition: 'backdrop-filter 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       <motion.nav 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         animate={{
-          opacity: isVisible ? 1 : 0
+          opacity: isVisible ? 1 : 0,
+          y: isVisible ? 0 : -10
         }}
         transition={{
-          duration: 0.2,
-          ease: [0.4, 0, 0.2, 1]
+          duration: 0.4,
+          ease: [0.25, 0.1, 0.25, 1],
+          delay: isVisible ? 0.1 : 0
         }}
       >
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <motion.a
             href="#"
@@ -111,17 +111,17 @@ const NewHeader = () => {
             <motion.img
               src="/img/logo/logo.png"
               alt="Zielone Mile Logo"
-              className="h-12 w-auto object-contain transition-all duration-300 rounded-lg"
-              whileHover={{ rotate: [0, -5, 5, -5, 0] }}
+              className="h-12 md:h-14 w-auto object-contain transition-all duration-300 rounded-lg shadow-sm"
+              whileHover={{ rotate: [0, -5, 5, -5, 0], scale: 1.05 }}
               transition={{ duration: 0.5 }}
             />
-            <span className="text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300">
+            <span className="text-xl md:text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300 tracking-tight">
               Zielone Mile
             </span>
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-2">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.label}
@@ -140,21 +140,21 @@ const NewHeader = () => {
                   }
                 }}
                 initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 + 0.3 }}
-                whileHover={{ y: -3 }}
-                className="relative text-forest-green font-medium transition-colors duration-300 group py-2 px-3 rounded-lg"
+                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
+                transition={{ delay: index * 0.08 + 0.2, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                whileHover={{ y: -2 }}
+                className="relative text-forest-green font-medium transition-all duration-300 group py-3 px-4 rounded-lg"
               >
-                <span className="relative z-10">{item.label}</span>
+                <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
                 <motion.span
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-mustard-gold origin-left"
+                  className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 />
                 <motion.span
-                  className="absolute inset-0 bg-mustard-gold/10 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
-                  transition={{ duration: 0.2 }}
+                  className="absolute inset-0 bg-mustard-gold/8 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 />
               </motion.a>
             ))}
