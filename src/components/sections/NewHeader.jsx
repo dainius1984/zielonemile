@@ -115,7 +115,7 @@ const NewHeader = () => {
               <Leaf className="w-6 h-6 text-forest-green group-hover:text-mustard-gold transition-colors duration-300" />
             </motion.div>
             <span className="text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300">
-              Zielone Tarasy
+              Zielone Mile
             </span>
           </motion.a>
 
