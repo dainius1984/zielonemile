@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, Building2, FileText } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -129,24 +129,13 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-cream/10 rounded-lg">
-                    <Phone className="w-6 h-6 text-mustard-gold" />
+                    <Building2 className="w-6 h-6 text-mustard-gold" />
                   </div>
                   <div>
-                    <p className="font-semibold mb-1">Telefon</p>
-                    <a href="tel:+48111222333" className="text-cream/90 hover:text-mustard-gold transition-colors">
-                      +48 111 222 333
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-cream/10 rounded-lg">
-                    <Mail className="w-6 h-6 text-mustard-gold" />
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-1">Email</p>
-                    <a href="mailto:info@zielonetarasy.pl" className="text-cream/90 hover:text-mustard-gold transition-colors">
-                      info@zielonetarasy.pl
-                    </a>
+                    <p className="font-semibold mb-1">Firma</p>
+                    <p className="text-cream/90">
+                      ZIELONE MILE ŁUKASZ ROGOZINSKI
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -156,8 +145,42 @@ const Contact = () => {
                   <div>
                     <p className="font-semibold mb-1">Adres</p>
                     <p className="text-cream/90">
-                      ul. Przykładowa 123<br />
-                      00-000 Warszawa
+                      ŻEROMSKIEGO 62/35<br />
+                      50-312 WROCŁAW
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-cream/10 rounded-lg">
+                    <Phone className="w-6 h-6 text-mustard-gold" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">Telefon</p>
+                    <a href="tel:+48608637118" className="text-cream/90 hover:text-mustard-gold transition-colors">
+                      608 637 118
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-cream/10 rounded-lg">
+                    <Mail className="w-6 h-6 text-mustard-gold" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">Email</p>
+                    <a href="mailto:zielonemile@vp.pl" className="text-cream/90 hover:text-mustard-gold transition-colors">
+                      zielonemile@vp.pl
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-cream/10 rounded-lg">
+                    <FileText className="w-6 h-6 text-mustard-gold" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">Dane firmowe</p>
+                    <p className="text-cream/90 text-sm">
+                      REGON: 021555931<br />
+                      NIP: 894 256 10 27
                     </p>
                   </div>
                 </div>
