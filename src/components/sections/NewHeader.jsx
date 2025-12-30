@@ -111,7 +111,7 @@ const NewHeader = () => {
             <img
               src="/img/logo/logo.png"
               alt="Zielone Mile Logo"
-              className="h-16 md:h-20 w-auto object-contain transition-all duration-300"
+              className="h-[4.4rem] md:h-[5.5rem] w-auto object-contain transition-all duration-300"
               style={{
                 filter: 'drop-shadow(0 4px 8px rgba(27, 67, 50, 0.3))',
               }}
