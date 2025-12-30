@@ -106,18 +106,16 @@ const NewHeader = () => {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 cursor-pointer group"
+            className="flex items-center cursor-pointer"
           >
-            <motion.img
+            <img
               src="/img/logo/logo.png"
               alt="Zielone Mile Logo"
-              className="h-12 md:h-14 w-auto object-contain transition-all duration-300 rounded-lg shadow-sm"
-              whileHover={{ rotate: [0, -5, 5, -5, 0], scale: 1.05 }}
-              transition={{ duration: 0.5 }}
+              className="h-16 md:h-20 w-auto object-contain transition-all duration-300"
+              style={{
+                filter: 'drop-shadow(0 4px 8px rgba(27, 67, 50, 0.3))',
+              }}
             />
-            <span className="text-xl md:text-2xl font-serif font-bold text-forest-green group-hover:text-mustard-gold transition-colors duration-300 tracking-tight">
-              Zielone Mile
-            </span>
           </motion.a>
 
           {/* Desktop Navigation */}
