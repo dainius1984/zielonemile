@@ -1,28 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, Building2, FileText } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, Building2, FileText, CheckCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
+const EMAILJS_PUBLIC_KEY = "0f8Jce-Gsw4GbjCQ_";
+const EMAILJS_SERVICE_ID = "service_m4uai4d";
+const EMAILJS_TEMPLATE_ID = "template_r7rcz39";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
-    alert('Dziękujemy za wiadomość! Skontaktujemy się z Tobą wkrótce.');
-  };
+  useEffect(() => {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setError('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      setError('Proszę uzupełnić wymagane pola.');
+      return;
+    }
+    setSubmitting(true);
+    setError('');
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          title: 'Konsultacje',
+          name: formData.name,
+          time: new Date().toLocaleString('pl-PL'),
+          message: formData.message + (formData.phone ? `\n\nTelefon: ${formData.phone}` : ''),
+          email: formData.email
+        }
+      );
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError('Przepraszamy, wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -58,63 +93,121 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Imię i Nazwisko
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all"
-                  placeholder="Jan Kowalski"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all"
-                  placeholder="jan@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Wiadomość
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all resize-none"
-                  placeholder="Opisz swój projekt..."
-                />
-              </div>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 bg-mustard-gold text-forest-green font-semibold rounded-full 
-                  hover:bg-mustard-gold/90 transition-all duration-300 flex items-center justify-center gap-2 text-lg shadow-lg"
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-mustard-gold/20 border-2 border-mustard-gold text-cream p-8 rounded-xl text-center shadow-lg"
               >
-                Wyślij wiadomość
-                <Send className="w-5 h-5" />
-              </motion.button>
-            </form>
+                <CheckCircle className="w-16 h-16 text-mustard-gold mx-auto mb-4" />
+                <h3 className="text-2xl font-serif font-bold mb-2 text-mustard-gold">
+                  Dziękujemy za kontakt!
+                </h3>
+                <p className="text-lg">
+                  Odpowiemy najszybciej jak to możliwe.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-500/20 border border-red-500 text-cream p-4 rounded-lg text-sm"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Imię i Nazwisko *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    disabled={submitting}
+                    className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="Jan Kowalski"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    disabled={submitting}
+                    className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="jan@example.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                    Telefon
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    disabled={submitting}
+                    className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="608 637 118 (opcjonalnie)"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Wiadomość *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    disabled={submitting}
+                    className="w-full px-4 py-3 rounded-lg bg-cream/10 border border-cream/30 text-cream placeholder-cream/60 focus:outline-none focus:ring-2 focus:ring-mustard-gold focus:border-transparent transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="Opisz swój projekt..."
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  disabled={submitting}
+                  whileHover={!submitting ? { scale: 1.05 } : {}}
+                  whileTap={!submitting ? { scale: 0.95 } : {}}
+                  className={`w-full px-8 py-4 bg-mustard-gold text-forest-green font-semibold rounded-full 
+                    hover:bg-mustard-gold/90 transition-all duration-300 flex items-center justify-center gap-2 text-lg shadow-lg
+                    ${submitting ? 'opacity-70 cursor-wait' : ''}`}
+                >
+                  {submitting ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-forest-green border-t-transparent rounded-full"
+                      />
+                      Wysyłanie...
+                    </>
+                  ) : (
+                    <>
+                      Wyślij wiadomość
+                      <Send className="w-5 h-5" />
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            )}
           </motion.div>
 
           {/* Contact Info */}

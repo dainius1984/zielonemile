@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-const Hero = () => {
+const Hero = ({ onContactClick }) => {
   const videoRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
@@ -53,10 +53,15 @@ const Hero = () => {
     }
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleContactClick = () => {
+    if (onContactClick) {
+      onContactClick();
+    } else {
+      // Fallback: scroll to contact section if no modal handler
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -126,7 +131,7 @@ const Hero = () => {
               <ArrowRight className="w-5 h-5" />
             </motion.button>
             <motion.button
-              onClick={scrollToContact}
+              onClick={handleContactClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-transparent border-2 border-cream text-cream font-semibold 

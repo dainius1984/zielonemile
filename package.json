@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "cra-template-tailwindcss": "4.0.1",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.469.0",
