@@ -1,0 +1,26 @@
+{
+  "short_name": "Zielone Mile",
+  "name": "Zielone Mile - Stylowe Tarasy",
+  "description": "Profesjonalne projektowanie i budowa tarasów oraz ogrodów",
+  "icons": [
+    {
+      "src": "img/logo/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/logo/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1B4332",
+  "background_color": "#F9F7F2",
+  "orientation": "portrait-primary",
+  "lang": "pl"
+}
+

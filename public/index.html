@@ -1,29 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="img/logo/logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="ZieloneMile"
-      content="ZieloneMile Tarasy i Ogrody"
-    />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    
+    <!-- Favicon - Multiple sizes for different devices -->
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/img/logo/logo.png" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1B4332" />
+    
+    <!-- Primary Meta Tags -->
     <title>Zielone Mile - Stylowe Tarasy: Funkcjonalność i Elegancja</title>
+    <meta name="title" content="Zielone Mile - Stylowe Tarasy: Funkcjonalność i Elegancja" />
+    <meta name="description" content="Zielone Mile - profesjonalne projektowanie i budowa tarasów oraz ogrodów. Tworzymy przestrzenie, które łączą funkcjonalność z elegancją. Bezpłatne konsultacje!" />
+    <meta name="keywords" content="tarasy, ogrody, projektowanie ogrodów, budowa tarasów, Zielone Mile, Wrocław, tarasy drewniane, tarasy kompozytowe, nawadnianie automatyczne" />
+    <meta name="author" content="Zielone Mile Łukasz Rogoziński" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://zielonemile.pl/" />
+    <meta property="og:title" content="Zielone Mile - Stylowe Tarasy: Funkcjonalność i Elegancja" />
+    <meta property="og:description" content="Zielone Mile - profesjonalne projektowanie i budowa tarasów oraz ogrodów. Tworzymy przestrzenie, które łączą funkcjonalność z elegancją." />
+    <meta property="og:image" content="%PUBLIC_URL%/img/logo/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Zielone Mile Logo" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Zielone Mile" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://zielonemile.pl/" />
+    <meta name="twitter:title" content="Zielone Mile - Stylowe Tarasy: Funkcjonalność i Elegancja" />
+    <meta name="twitter:description" content="Zielone Mile - profesjonalne projektowanie i budowa tarasów oraz ogrodów. Tworzymy przestrzenie, które łączą funkcjonalność z elegancją." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/img/logo/logo.png" />
+    <meta name="twitter:image:alt" content="Zielone Mile Logo" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="application-name" content="Zielone Mile" />
+    <meta name="apple-mobile-web-app-title" content="Zielone Mile" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   </head>
   <body class="h-screen scroll-smooth">
     <noscript>You need to enable JavaScript to run this app.</noscript>
