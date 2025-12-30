@@ -5,15 +5,44 @@ import { ArrowRight } from 'lucide-react';
 const Hero = () => {
   const videoRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
-    // Lazy load video when component mounts
+    // Load video immediately when component mounts
     if (videoRef.current) {
-      videoRef.current.addEventListener('loadeddata', () => {
+      const video = videoRef.current;
+      
+      // Try to play video immediately
+      const handleCanPlay = () => {
         setVideoLoaded(true);
+        video.play().catch(() => {
+          // Auto-play might be blocked, but video is ready
+          setVideoLoaded(true);
+        });
+      };
+
+      const handleError = () => {
+        setVideoError(true);
+        setVideoLoaded(false);
+      };
+
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('canplaythrough', handleCanPlay);
+      video.addEventListener('error', handleError);
+      
+      // Start loading video immediately
+      video.load();
+      
+      // Try to play
+      video.play().catch(() => {
+        // Auto-play might be blocked, continue anyway
       });
-      // Preload video
-      videoRef.current.load();
+
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('canplaythrough', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
     }
   }, []);
 
@@ -41,25 +70,26 @@ const Hero = () => {
           loop
           muted
           playsInline
-          preload="metadata"
-          className={`w-full h-full object-cover transition-opacity duration-500 ${
-            videoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          poster="/img/main/1.jpg"
+          preload="auto"
+          className="w-full h-full object-cover"
+          style={{
+            opacity: videoLoaded ? 1 : 0,
+            transition: 'opacity 0.3s ease-in-out'
+          }}
         >
           <source
             src="/video/hero.mp4"
             type="video/mp4"
           />
         </video>
-        {/* Fallback image if video fails to load */}
-        <img
-          src="/img/main/1.jpg"
-          alt="Terasy"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            videoLoaded ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
+        {/* Fallback image only if video fails to load */}
+        {videoError && (
+          <img
+            src="/img/main/1.jpg"
+            alt="Terasy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-forest-green/40" />
       </div>
