@@ -4,10 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Favicon - Multiple sizes for different devices -->
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/img/logo/logo.png" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/img/logo/logo.png" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <!-- Favicon - Prioritize larger sizes for better visibility (appears ~30% larger) -->
+    <link rel="icon" type="image/png" sizes="48x48" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/img/logo/logo.png" />
+    <link rel="shortcut icon" sizes="48x48" href="%PUBLIC_URL%/img/logo/logo.png" />
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#1B4332" />
