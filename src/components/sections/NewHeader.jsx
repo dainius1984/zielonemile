@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const NewHeader = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -43,10 +45,10 @@ const NewHeader = () => {
   }, []);
 
   const navItems = [
-    { label: 'O Nas', href: '#about' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Usługi', href: '#services' },
-    { label: 'Kontakt', href: '#contact' },
+    { label: 'O Nas', href: '/o-nas' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Usługi', href: '/uslugi' },
+    { label: 'Kontakt', href: '/#contact' },
   ];
 
   return (
@@ -98,64 +100,97 @@ const NewHeader = () => {
       >
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <motion.a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center cursor-pointer"
+          <Link
+            to="/"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            <img
-              src="/img/logo/logo.png"
-              alt="Zielone Mile Logo"
-              className="h-[4.4rem] md:h-[5.5rem] w-auto object-contain transition-all duration-300"
-              style={{
-                filter: 'drop-shadow(0 4px 8px rgba(27, 67, 50, 0.3))',
-              }}
-            />
-          </motion.a>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center cursor-pointer"
+            >
+              <img
+                src="/img/logo/logo.png"
+                alt="Zielone Mile Logo"
+                className="h-[4.4rem] md:h-[5.5rem] w-auto object-contain transition-all duration-300"
+                style={{
+                  filter: 'drop-shadow(0 4px 8px rgba(27, 67, 50, 0.3))',
+                }}
+              />
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.querySelector(item.href);
-                  if (element) {
-                    const headerOffset = 80;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
-                transition={{ delay: index * 0.08 + 0.2, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                whileHover={{ y: -2 }}
-                className="relative text-forest-green font-medium transition-all duration-300 group py-3 px-4 rounded-lg"
-              >
-                <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
-                <motion.span
-                  className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                />
-                <motion.span
-                  className="absolute inset-0 bg-mustard-gold/8 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
-                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                />
-              </motion.a>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = location.pathname === item.href || 
+                (item.href === '/#contact' && location.hash === '#contact');
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
+                  transition={{ delay: index * 0.08 + 0.2, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  {item.href.startsWith('/#') ? (
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (location.pathname !== '/') {
+                          window.location.href = item.href;
+                        } else {
+                          const element = document.querySelector(item.href);
+                          if (element) {
+                            const headerOffset = 80;
+                            const elementPosition = element.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            window.scrollTo({
+                              top: offsetPosition,
+                              behavior: 'smooth'
+                            });
+                          }
+                        }
+                      }}
+                      className={`relative text-forest-green font-medium transition-all duration-300 group py-3 px-4 rounded-lg ${
+                        isActive ? 'text-mustard-gold' : ''
+                      }`}
+                    >
+                      <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
+                      <motion.span
+                        className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
+                        initial={{ scaleX: isActive ? 1 : 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      />
+                      <motion.span
+                        className="absolute inset-0 bg-mustard-gold/8 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
+                        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      />
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`relative text-forest-green font-medium transition-all duration-300 group py-3 px-4 rounded-lg ${
+                        isActive ? 'text-mustard-gold' : ''
+                      }`}
+                    >
+                      <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
+                      <motion.span
+                        className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
+                        initial={{ scaleX: isActive ? 1 : 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      />
+                      <motion.span
+                        className="absolute inset-0 bg-mustard-gold/8 rounded-lg opacity-0 group-hover:opacity-100 -z-10"
+                        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      />
+                    </Link>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Mobile Menu Button */}
@@ -186,39 +221,71 @@ const NewHeader = () => {
           className="md:hidden overflow-hidden"
         >
           <div className="py-4 space-y-2">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                  const element = document.querySelector(item.href);
-                  if (element) {
-                    const headerOffset = 80;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ 
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                  x: isMobileMenuOpen ? 0 : -20
-                }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.98 }}
-                className="block text-forest-green font-medium hover:text-mustard-gold 
-                  transition-colors duration-300 py-3 px-4 rounded-lg hover:bg-cream/50 
-                  border-l-2 border-transparent hover:border-mustard-gold"
-              >
-                {item.label}
-              </motion.a>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = location.pathname === item.href || 
+                (item.href === '/#contact' && location.hash === '#contact');
+              return item.href.startsWith('/#') ? (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    if (location.pathname !== '/') {
+                      window.location.href = item.href;
+                    } else {
+                      const element = document.querySelector(item.href);
+                      if (element) {
+                        const headerOffset = 80;
+                        const elementPosition = element.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }
+                  }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ 
+                    opacity: isMobileMenuOpen ? 1 : 0,
+                    x: isMobileMenuOpen ? 0 : -20
+                  }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`block font-medium transition-colors duration-300 py-3 px-4 rounded-lg hover:bg-cream/50 
+                    border-l-2 border-transparent hover:border-mustard-gold ${
+                      isActive ? 'text-mustard-gold border-mustard-gold' : 'text-forest-green hover:text-mustard-gold'
+                    }`}
+                >
+                  {item.label}
+                </motion.a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ 
+                      opacity: isMobileMenuOpen ? 1 : 0,
+                      x: isMobileMenuOpen ? 0 : -20
+                    }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`block font-medium transition-colors duration-300 py-3 px-4 rounded-lg hover:bg-cream/50 
+                      border-l-2 border-transparent hover:border-mustard-gold ${
+                        isActive ? 'text-mustard-gold border-mustard-gold' : 'text-forest-green hover:text-mustard-gold'
+                      }`}
+                  >
+                    {item.label}
+                  </motion.div>
+                </Link>
+              );
+            })}
           </div>
         </motion.div>
       </motion.nav>

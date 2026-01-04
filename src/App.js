@@ -1,25 +1,33 @@
-import React, { useState } from "react";
-import NewHeader from "./components/sections/NewHeader";
-import Hero from "./components/sections/Hero";
-import About from "./components/sections/About";
-import Gallery from "./components/sections/Gallery";
-import Features from "./components/sections/Features";
-import Contact from "./components/sections/Contact";
-import { ConsultationModal } from "./components/ConsultationModal";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Portfolio from "./pages/Portfolio";
+import Services from "./pages/Services";
+import Tarasy from "./pages/portfolio/Tarasy";
+import Ogrody from "./pages/portfolio/Ogrody";
+import PrzedPo from "./pages/portfolio/PrzedPo";
+import ProjektowanieOgrodow from "./pages/services/ProjektowanieOgrodow";
+import BudowaTarasow from "./pages/services/BudowaTarasow";
+import Nawadnianie from "./pages/services/Nawadnianie";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-cream">
-      <NewHeader />
-      <Hero onContactClick={() => setIsModalOpen(true)} />
-      <About />
-      <Gallery />
-      <Features />
-      <Contact />
-      <ConsultationModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/o-nas" element={<Layout><About /></Layout>} />
+        <Route path="/portfolio" element={<Layout><Portfolio /></Layout>} />
+        <Route path="/portfolio/tarasy" element={<Layout><Tarasy /></Layout>} />
+        <Route path="/portfolio/ogrody" element={<Layout><Ogrody /></Layout>} />
+        <Route path="/portfolio/przed-po" element={<Layout><PrzedPo /></Layout>} />
+        <Route path="/uslugi" element={<Layout><Services /></Layout>} />
+        <Route path="/uslugi/projektowanie-ogrodow" element={<Layout><ProjektowanieOgrodow /></Layout>} />
+        <Route path="/uslugi/budowa-tarasow" element={<Layout><BudowaTarasow /></Layout>} />
+        <Route path="/uslugi/nawadnianie" element={<Layout><Nawadnianie /></Layout>} />
+      </Routes>
+    </Router>
   );
 }
 
