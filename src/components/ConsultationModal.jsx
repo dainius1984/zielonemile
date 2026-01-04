@@ -10,10 +10,11 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 
 export const ConsultationModal = ({ open, onClose }) => {
   const videoRef = useRef(null);
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', countryCode: '+48', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
 
   useEffect(() => {
     if (videoRef.current) {
@@ -32,8 +33,43 @@ export const ConsultationModal = ({ open, onClose }) => {
 
   if (!open) return null;
 
+  const validatePhone = (phone, countryCode) => {
+    if (!phone) return true; // Phone is optional
+    if (countryCode === '+48') {
+      // Polish phone format: 9 digits (without country code)
+      const cleaned = phone.replace(/\s/g, '');
+      // Accept formats: 123456789, 123 456 789, 123-456-789
+      const phoneRegex = /^[0-9]{9}$/;
+      return phoneRegex.test(cleaned);
+    }
+    return true; // For other countries, basic validation
+  };
+
+  const formatPhone = (value) => {
+    // Remove all non-digits
+    const cleaned = value.replace(/\D/g, '');
+    // Format as XXX XXX XXX (9 digits)
+    if (cleaned.length <= 3) return cleaned;
+    if (cleaned.length <= 6) return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
+    return `${cleaned.slice(0, 3)} ${cleaned.slice(3, 6)} ${cleaned.slice(6, 9)}`;
+  };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'phone') {
+      const formatted = formatPhone(value);
+      setForm({ ...form, phone: formatted });
+      if (formatted && !validatePhone(formatted, form.countryCode)) {
+        setPhoneError('Nieprawidłowy format numeru telefonu. Wprowadź 9 cyfr (np. 608 637 118)');
+      } else {
+        setPhoneError('');
+      }
+    } else if (name === 'countryCode') {
+      setForm({ ...form, countryCode: value, phone: '' });
+      setPhoneError('');
+    } else {
+      setForm({ ...form, [name]: value });
+    }
     setError('');
   };
 
@@ -43,8 +79,22 @@ export const ConsultationModal = ({ open, onClose }) => {
       setError('Proszę uzupełnić wymagane pola.');
       return;
     }
+    
+    // Validate phone if provided
+    if (form.phone && !validatePhone(form.phone, form.countryCode)) {
+      setPhoneError('Nieprawidłowy format numeru telefonu. Wprowadź 9 cyfr (np. 608 637 118)');
+      return;
+    }
+    
     setSubmitting(true);
+    setError('');
+    setPhoneError('');
+    
     try {
+      const phoneMessage = form.phone 
+        ? `\n\nTelefon: ${form.countryCode} ${form.phone}` 
+        : '';
+      
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -52,12 +102,12 @@ export const ConsultationModal = ({ open, onClose }) => {
           title: 'Konsultacje',
           name: form.name,
           time: new Date().toLocaleString('pl-PL'),
-          message: form.message,
+          message: form.message + phoneMessage,
           email: form.email
         }
       );
       setSubmitted(true);
-      setForm({ name: '', email: '', message: '' });
+      setForm({ name: '', email: '', phone: '', countryCode: '+48', message: '' });
       setTimeout(() => {
         setSubmitted(false);
         onClose();
@@ -151,6 +201,39 @@ export const ConsultationModal = ({ open, onClose }) => {
                   required
                   disabled={submitting}
                 />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium mb-2 text-forest-green">Telefon</label>
+                <div className="flex gap-2">
+                  <select
+                    name="countryCode"
+                    value={form.countryCode}
+                    onChange={handleChange}
+                    disabled={submitting}
+                    className="px-3 py-3 rounded-xl bg-white border border-forest-green/20 text-forest-green focus:outline-none focus:ring-2 focus:ring-mustard-gold text-base transition-all"
+                  >
+                    <option value="+48">+48</option>
+                    <option value="+1">+1</option>
+                    <option value="+44">+44</option>
+                    <option value="+49">+49</option>
+                  </select>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    className={`flex-1 px-4 py-3 rounded-xl bg-white border text-forest-green focus:outline-none focus:ring-2 focus:ring-mustard-gold placeholder-gray-400 text-base transition-all ${
+                      phoneError ? 'border-red-500' : 'border-forest-green/20'
+                    }`}
+                    placeholder="608 637 118"
+                    disabled={submitting}
+                    maxLength={11} // 9 digits + 2 spaces
+                  />
+                </div>
+                {phoneError && (
+                  <p className="mt-1 text-sm text-red-600">{phoneError}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2 text-forest-green">Wiadomość *</label>
