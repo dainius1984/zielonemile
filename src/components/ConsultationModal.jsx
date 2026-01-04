@@ -102,14 +102,15 @@ export const ConsultationModal = ({ open, onClose }) => {
         >
           <button
             onClick={onClose}
-            className="absolute top-2 md:top-4 right-2 md:right-4 text-forest-green hover:text-mustard-gold text-3xl md:text-4xl font-bold focus:outline-none transition-colors"
+            className="absolute top-3 md:top-4 right-3 md:right-4 text-forest-green hover:text-mustard-gold text-3xl md:text-4xl font-bold focus:outline-none transition-colors z-10"
             aria-label="Zamknij"
             type="button"
           >
             &times;
           </button>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-forest-green mb-8 text-center tracking-tight">
-            Umów Bezpłatną Konsultację
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-forest-green mb-8 text-center tracking-tight pr-10 md:pr-0">
+            <span className="block">Umów Bezpłatną</span>
+            <span className="block">Konsultację</span>
           </h2>
           {submitted ? (
             <motion.div
