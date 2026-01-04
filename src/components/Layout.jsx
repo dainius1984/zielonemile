@@ -1,6 +1,6 @@
 import React from 'react';
 import NewHeader from './sections/NewHeader';
-import Contact from './sections/Contact';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (
@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <main className="pt-20 md:pt-24">
         {children}
       </main>
-      <Contact />
+      <Footer />
     </div>
   );
 };
