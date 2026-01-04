@@ -94,7 +94,7 @@ export const ConsultationModal = ({ open, onClose }) => {
         </div>
         {/* Modal content */}
         <motion.div
-          className="relative z-[9999] w-full max-w-lg mx-auto p-4 sm:p-8 md:p-10 bg-cream/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-forest-green/20"
+          className="relative z-[9999] w-full max-w-lg mx-auto p-4 sm:p-8 md:p-10 bg-cream/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-forest-green/20 mr-[10px] sm:mr-auto"
           initial={{ scale: 0.85, opacity: 0, y: 40 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.85, opacity: 0, y: 40 }}
