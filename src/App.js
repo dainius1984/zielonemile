@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
@@ -14,7 +15,9 @@ import Nawadnianie from "./pages/services/Nawadnianie";
 
 function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
       <Route path="/o-nas" element={<Layout><About /></Layout>} />
       <Route path="/portfolio" element={<Layout><Portfolio /></Layout>} />
@@ -26,7 +29,8 @@ function App() {
       <Route path="/uslugi/budowa-tarasow" element={<Layout><BudowaTarasow /></Layout>} />
       <Route path="/uslugi/nawadnianie" element={<Layout><Nawadnianie /></Layout>} />
       <Route path="*" element={<Layout><Home /></Layout>} />
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

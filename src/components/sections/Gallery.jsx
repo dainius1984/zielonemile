@@ -39,7 +39,7 @@ const Gallery = () => {
     },
     {
       id: 6,
-      src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&q=80',
+      src: '/img/main/3.jpg',
       alt: 'Ogród 2',
       category: 'ogrody',
     },
