@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const NewHeader = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -138,9 +139,23 @@ const NewHeader = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         if (location.pathname !== '/') {
-                          window.location.href = item.href;
+                          // Navigate to home first, then scroll to contact
+                          navigate('/');
+                          setTimeout(() => {
+                            const element = document.getElementById('contact');
+                            if (element) {
+                              const headerOffset = 80;
+                              const elementPosition = element.getBoundingClientRect().top;
+                              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            }
+                          }, 100);
                         } else {
-                          const element = document.querySelector(item.href);
+                          // Already on home page, just scroll
+                          const element = document.getElementById('contact');
                           if (element) {
                             const headerOffset = 80;
                             const elementPosition = element.getBoundingClientRect().top;
@@ -232,9 +247,23 @@ const NewHeader = () => {
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
                     if (location.pathname !== '/') {
-                      window.location.href = item.href;
+                      // Navigate to home first, then scroll to contact
+                      navigate('/');
+                      setTimeout(() => {
+                        const element = document.getElementById('contact');
+                        if (element) {
+                          const headerOffset = 80;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }
+                      }, 100);
                     } else {
-                      const element = document.querySelector(item.href);
+                      // Already on home page, just scroll
+                      const element = document.getElementById('contact');
                       if (element) {
                         const headerOffset = 80;
                         const elementPosition = element.getBoundingClientRect().top;

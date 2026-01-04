@@ -23,11 +23,23 @@ const Ogrody = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-2xl p-8 md:p-12 shadow-lg"
+          className="grid md:grid-cols-2 gap-8"
         >
-          <p className="text-gray-700 leading-relaxed">
-            [Galeria projektów ogrodowych - placeholder]
-          </p>
+          <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
+            <img
+              src="/img/main/3.jpg"
+              alt="Projekt ogrodowy"
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+            <h2 className="text-2xl font-serif font-bold text-forest-green mb-4">
+              Nasze Projekty Ogrodowe
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              [Opis projektów ogrodowych - placeholder]
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>
