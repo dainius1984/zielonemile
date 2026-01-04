@@ -46,10 +46,11 @@ const NewHeader = () => {
   }, []);
 
   const navItems = [
-    { label: 'O Nas', href: '/o-nas' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Usługi', href: '/uslugi' },
-    { label: 'Kontakt', href: '/#contact' },
+    { label: 'Strona Główna', href: '/', exact: true },
+    { label: 'O Nas', href: '/o-nas', exact: true },
+    { label: 'Portfolio', href: '/portfolio', exact: false }, // false means it matches sub-pages too
+    { label: 'Usługi', href: '/uslugi', exact: false }, // false means it matches sub-pages too
+    { label: 'Kontakt', href: '/#contact', exact: true },
   ];
 
   return (
@@ -124,8 +125,22 @@ const NewHeader = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             {navItems.map((item, index) => {
-              const isActive = location.pathname === item.href || 
-                (item.href === '/#contact' && location.hash === '#contact');
+              // Dynamic active state checking
+              let isActive = false;
+              if (item.href === '/') {
+                // Home page - only active when exactly on home
+                isActive = location.pathname === '/' && !location.hash;
+              } else if (item.href === '/#contact') {
+                // Contact - active when hash is #contact
+                isActive = location.hash === '#contact';
+              } else if (item.exact) {
+                // Exact match for pages like /o-nas
+                isActive = location.pathname === item.href;
+              } else {
+                // Match for pages with sub-pages (portfolio, uslugi)
+                isActive = location.pathname.startsWith(item.href);
+              }
+              
               return (
                 <motion.div
                   key={item.label}
@@ -174,7 +189,7 @@ const NewHeader = () => {
                       <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
                       <motion.span
                         className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
-                        initial={{ scaleX: isActive ? 1 : 0 }}
+                        animate={{ scaleX: isActive ? 1 : 0 }}
                         whileHover={{ scaleX: 1 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                       />
@@ -193,7 +208,7 @@ const NewHeader = () => {
                       <span className="relative z-10 text-sm tracking-wide">{item.label}</span>
                       <motion.span
                         className="absolute bottom-1 left-0 right-0 h-0.5 bg-mustard-gold origin-left rounded-full"
-                        initial={{ scaleX: isActive ? 1 : 0 }}
+                        animate={{ scaleX: isActive ? 1 : 0 }}
                         whileHover={{ scaleX: 1 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                       />
@@ -237,8 +252,18 @@ const NewHeader = () => {
         >
           <div className="py-4 space-y-2">
             {navItems.map((item, index) => {
-              const isActive = location.pathname === item.href || 
-                (item.href === '/#contact' && location.hash === '#contact');
+              // Dynamic active state checking (same as desktop)
+              let isActive = false;
+              if (item.href === '/') {
+                isActive = location.pathname === '/' && !location.hash;
+              } else if (item.href === '/#contact') {
+                isActive = location.hash === '#contact';
+              } else if (item.exact) {
+                isActive = location.pathname === item.href;
+              } else {
+                isActive = location.pathname.startsWith(item.href);
+              }
+              
               return item.href.startsWith('/#') ? (
                 <motion.a
                   key={item.label}
