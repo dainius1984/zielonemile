@@ -36,9 +36,9 @@ const Gallery = () => {
     },
     {
       id: 5,
-      src: '/img/bramy i garaze/20210309_110516.jpg',
-      alt: 'Brama i Garaż',
-      category: 'bramy-i-garaze',
+      src: '/img/zabudowy/20210309_110516.jpg',
+      alt: 'Zabudowa',
+      category: 'zabudowy',
     },
     {
       id: 6,

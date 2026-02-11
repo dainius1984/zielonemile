@@ -41,7 +41,6 @@ const Portfolio = () => {
     { id: 'all', label: 'Wszystkie', slug: 'all' },
     { id: 'tarasy', label: 'Tarasy', slug: 'tarasy' },
     { id: 'ogrody', label: 'Ogrody', slug: 'ogrody' },
-    { id: 'bramy-i-garaze', label: 'Bramy i Garaże', slug: 'bramy-i-garaze' },
     { id: 'plac-zabaw', label: 'Place Zabaw', slug: 'plac-zabaw' },
     { id: 'zabudowy', label: 'Zabudowy', slug: 'zabudowy' },
   ];
@@ -62,13 +61,6 @@ const Portfolio = () => {
       highlightTitle: 'Nowoczesny Design',
       highlightDescription: 'Gdzie współczesna estetyka spotyka się z naturą - minimalistyczne formy, czyste linie i harmonijne kompozycje roślinne'
     },
-    'bramy-i-garaze': {
-      title: 'Bramy i Garaże',
-      description: 'Bezpieczeństwo i funkcjonalność w jednym. Projektujemy i montujemy bramy oraz garaże, które nie tylko chronią, ale także dodają charakteru Twojej posesji. Nowoczesne rozwiązania techniczne spotykają się z estetyką.',
-      highlightImage: '/img/bramy i garaze/stylowe garaze.jpg',
-      highlightTitle: 'Stylowe Garaże',
-      highlightDescription: 'Gdzie funkcjonalność spotyka się z elegancją - nowoczesne rozwiązania architektoniczne dla Twojej posesji'
-    },
     'plac-zabaw': {
       title: 'Place Zabaw',
       description: 'Tworzymy bezpieczne i ekologiczne place zabaw, gdzie dzieci mogą rozwijać się poprzez zabawę. Wykorzystujemy wyłącznie certyfikowane, przyjazne środowisku materiały, zapewniając najwyższe standardy bezpieczeństwa dla najmłodszych.',
@@ -78,10 +70,10 @@ const Portfolio = () => {
     },
     'zabudowy': {
       title: 'Zabudowy',
-      description: 'Funkcjonalne zabudowy gospodarcze, które organizują przestrzeń wokół Twojego domu. Od śmietników po pomieszczenia gospodarcze - każda zabudowa jest zaprojektowana tak, aby była praktyczna i estetyczna.',
-      highlightImage: '/img/zabudowy/Zabudowa śmietnik (1).jpg',
-      highlightTitle: 'Zabudowa Śmietnik',
-      highlightDescription: 'Eleganckie rozwiązania dla codziennych potrzeb - funkcjonalność w pięknym opakowaniu'
+      description: 'Tworzymy funkcjonalne i stylowe zabudowy, które organizują przestrzeń wokół Twojego domu. Od eleganckich śmietników, przez praktyczne pomieszczenia gospodarcze, aż po przestronne zabudowy na auta - każda realizacja łączy w sobie funkcjonalność z estetyką. Wykorzystujemy najwyższej jakości materiały i nowoczesne rozwiązania, aby stworzyć przestrzenie, które nie tylko spełniają swoje zadanie, ale także dodają charakteru Twojej posesji.',
+      highlightImage: '/img/zabudowy/zabudowy na auta.jpg',
+      highlightTitle: 'Stylowe Zabudowy',
+      highlightDescription: 'Od śmietników po przestronne zabudowy na auta - tworzymy funkcjonalne przestrzenie, które łączą praktyczność z elegancją. Każda zabudowa to indywidualne rozwiązanie dopasowane do Twoich potrzeb i stylu Twojego domu.'
     }
   };
 
@@ -117,25 +109,23 @@ const Portfolio = () => {
     { id: 31, src: '/img/ogrody/Ogrody (11).jpg', alt: 'Ogród', category: 'ogrody' },
     { id: 32, src: '/img/ogrody/Ogrody (12).jpg', alt: 'Ogród', category: 'ogrody' },
     
-    // Bramy i Garaże
-    { id: 40, src: '/img/bramy i garaze/20190327_163606.jpg', alt: 'Brama i Garaż', category: 'bramy-i-garaze' },
-    { id: 41, src: '/img/bramy i garaze/20190328_134624.jpg', alt: 'Brama i Garaż', category: 'bramy-i-garaze' },
-    { id: 43, src: '/img/bramy i garaze/20210309_110516.jpg', alt: 'Brama i Garaż', category: 'bramy-i-garaze' },
-    { id: 44, src: '/img/bramy i garaze/20210309_143520.jpg', alt: 'Brama i Garaż', category: 'bramy-i-garaze' },
-    { id: 45, src: '/img/bramy i garaze/stylowe garaze.jpg', alt: 'Stylowe Garaże', category: 'bramy-i-garaze' },
-    
     // Place Zabaw
     { id: 50, src: '/img/plac zabaw/nowoczesny plac zabaw.jpg', alt: 'Nowoczesny Plac Zabaw', category: 'plac-zabaw' },
     { id: 51, src: '/img/plac zabaw/20220423_142644.jpg', alt: 'Plac Zabaw', category: 'plac-zabaw' },
     { id: 52, src: '/img/plac zabaw/20220423_142703.jpg', alt: 'Plac Zabaw', category: 'plac-zabaw' },
     
-    // Zabudowy
+    // Zabudowy (włączając przeniesione z bramy i garaze)
     { id: 60, src: '/img/zabudowy/20220802_084131.jpg', alt: 'Zabudowa', category: 'zabudowy' },
     { id: 61, src: '/img/zabudowy/20230111_150559.jpg', alt: 'Zabudowa', category: 'zabudowy' },
     { id: 62, src: '/img/zabudowy/20250507_075527.jpg', alt: 'Zabudowa', category: 'zabudowy' },
     { id: 63, src: '/img/zabudowy/20250814_193933.jpg', alt: 'Zabudowa', category: 'zabudowy' },
     { id: 64, src: '/img/zabudowy/IMG_20180927_163530.jpg', alt: 'Zabudowa', category: 'zabudowy' },
-    { id: 65, src: '/img/zabudowy/Zabudowa śmietnik (1).jpg', alt: 'Zabudowa', category: 'zabudowy' },
+    { id: 65, src: '/img/zabudowy/Zabudowa śmietnik (1).jpg', alt: 'Zabudowa Śmietnik', category: 'zabudowy' },
+    { id: 66, src: '/img/zabudowy/zabudowy na auta.jpg', alt: 'Zabudowy na Auta', category: 'zabudowy' },
+    { id: 67, src: '/img/zabudowy/20190327_163606.jpg', alt: 'Zabudowa', category: 'zabudowy' },
+    { id: 68, src: '/img/zabudowy/20190328_134624.jpg', alt: 'Zabudowa', category: 'zabudowy' },
+    { id: 69, src: '/img/zabudowy/20210309_110516.jpg', alt: 'Zabudowa', category: 'zabudowy' },
+    { id: 70, src: '/img/zabudowy/20210309_143520.jpg', alt: 'Zabudowa', category: 'zabudowy' },
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);

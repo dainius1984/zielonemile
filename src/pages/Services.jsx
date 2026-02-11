@@ -45,21 +45,13 @@ const Services = () => {
       id: 5, 
       title: 'Zabudowy', 
       slug: 'zabudowy', 
-      description: 'Zabudowy gospodarcze, śmietniki i inne konstrukcje',
+      description: 'Stylowe zabudowy od śmietników po przestronne zabudowy na auta - funkcjonalne przestrzenie łączące praktyczność z elegancją',
       portfolioCategory: 'zabudowy',
       previewImages: [
+        '/img/zabudowy/zabudowy na auta.jpg',
         '/img/zabudowy/20230111_150559.jpg',
-        '/img/zabudowy/20250507_075527.jpg',
         '/img/zabudowy/Zabudowa śmietnik (1).jpg'
       ]
-    },
-    { 
-      id: 6, 
-      title: 'Nawadnianie Automatyczne', 
-      slug: 'nawadnianie', 
-      description: 'Systemy automatycznego nawadniania',
-      portfolioCategory: null, // Nie ma kategorii w portfolio
-      previewImages: []
     },
   ];
 
@@ -80,67 +72,97 @@ const Services = () => {
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {/* Services Grid - Enhanced Interactive UX/UI */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
+              whileHover={{ y: -12, scale: 1.02 }}
+              className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-forest-green/5 hover:border-mustard-gold/30"
             >
-              {/* Preview Images */}
+              {/* Preview Images with Enhanced Effects */}
               {service.previewImages && service.previewImages.length > 0 && (
-                <div className="relative h-48 overflow-hidden bg-cream">
+                <div className="relative h-64 overflow-hidden bg-cream">
                   <div className="grid grid-cols-3 gap-1 h-full">
                     {service.previewImages.slice(0, 3).map((img, imgIndex) => (
-                      <motion.img
+                      <motion.div
                         key={imgIndex}
-                        src={img}
-                        alt={`${service.title} - Przykład ${imgIndex + 1}`}
-                        className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.3 }}
-                      />
+                        className="relative overflow-hidden"
+                        whileHover={{ zIndex: 10 }}
+                      >
+                        <motion.img
+                          src={img}
+                          alt={`${service.title} - Przykład ${imgIndex + 1}`}
+                          className="w-full h-full object-cover"
+                          whileHover={{ scale: 1.15 }}
+                          transition={{ duration: 0.4, ease: "easeOut" }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </motion.div>
                     ))}
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Animated Overlay */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-mustard-gold/20 via-transparent to-forest-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={false}
+                  />
+                  {/* Hover Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
+                  >
+                    <span className="text-sm font-semibold text-forest-green">
+                      {service.previewImages.length}+ realizacji
+                    </span>
+                  </motion.div>
                 </div>
               )}
               
-              <div className="p-8">
-                <h2 className="text-2xl font-serif font-bold text-forest-green mb-4">
+              <div className="p-8 relative">
+                {/* Decorative Element */}
+                <div className="absolute top-0 left-8 w-16 h-1 bg-gradient-to-r from-mustard-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <motion.h2 
+                  className="text-3xl font-serif font-bold text-forest-green mb-4 group-hover:text-mustard-gold transition-colors duration-300"
+                  whileHover={{ x: 5 }}
+                >
                   {service.title}
-                </h2>
-                <p className="text-gray-700 mb-6">
+                </motion.h2>
+                <p className="text-gray-700 mb-6 leading-relaxed text-base">
                   {service.description}
                 </p>
                 
-                <div className="flex flex-col gap-3">
-                  <Link
-                    to={`/uslugi/${service.slug}`}
-                    className="inline-flex items-center gap-2 text-mustard-gold hover:text-forest-green font-semibold transition-colors"
-                  >
-                    Dowiedz się więcej
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  
-                  {/* Portfolio Link */}
-                  {service.portfolioCategory && (
+                <div className="flex flex-col gap-4 pt-4 border-t border-forest-green/10">
+                  <motion.div whileHover={{ x: 5 }}>
                     <Link
-                      to={`/portfolio`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = `/portfolio#${service.portfolioCategory}`;
-                      }}
-                      className="inline-flex items-center gap-2 text-forest-green/70 hover:text-mustard-gold font-medium text-sm transition-colors group/portfolio"
+                      to={`/uslugi/${service.slug}`}
+                      className="inline-flex items-center gap-2 text-mustard-gold hover:text-forest-green font-semibold transition-all duration-300 group/link"
                     >
-                      <ImageIcon className="w-4 h-4 group-hover/portfolio:scale-110 transition-transform" />
-                      Zobacz realizacje
-                      <ArrowRight className="w-3 h-3 group-hover/portfolio:translate-x-1 transition-transform" />
+                      <span>Dowiedz się więcej</span>
+                      <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
                     </Link>
+                  </motion.div>
+                  
+                  {/* Portfolio Link with Enhanced Design */}
+                  {service.portfolioCategory && (
+                    <motion.div whileHover={{ x: 5 }}>
+                      <Link
+                        to={`/portfolio`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.location.href = `/portfolio#${service.portfolioCategory}`;
+                        }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-cream hover:bg-mustard-gold/10 text-forest-green/80 hover:text-mustard-gold font-medium text-sm rounded-lg transition-all duration-300 group/portfolio border border-forest-green/10 hover:border-mustard-gold/30"
+                      >
+                        <ImageIcon className="w-4 h-4 group-hover/portfolio:scale-125 group-hover/portfolio:rotate-12 transition-transform" />
+                        <span>Zobacz realizacje</span>
+                        <ArrowRight className="w-3 h-3 group-hover/portfolio:translate-x-2 transition-transform" />
+                      </Link>
+                    </motion.div>
                   )}
                 </div>
               </div>
@@ -159,7 +181,7 @@ const Services = () => {
             Zobacz nasze realizacje
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Odkryj nasze najlepsze projekty - każdy taras, ogród i plac zabaw to unikalne dzieło sztuki
+            Odkryj nasze najlepsze projekty - każdy taras, ogród, plac zabaw i zabudowa to unikalne dzieło sztuki
           </p>
           <Link
             to="/portfolio"
