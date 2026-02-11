@@ -6,6 +6,7 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
 
   // Gallery images from portfolio categories
   const galleryImages = [
@@ -61,7 +62,13 @@ const Gallery = () => {
 
   const openLightbox = (image) => {
     setSelectedImage(image);
+    setShowSwipeHint(true);
     document.body.style.overflow = 'hidden';
+    
+    // Auto-hide swipe hint after 3 seconds
+    setTimeout(() => {
+      setShowSwipeHint(false);
+    }, 3000);
   };
 
   const closeLightbox = () => {
@@ -104,6 +111,11 @@ const Gallery = () => {
     const minSwipeDistance = 50;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
+
+    // Hide swipe hint after first swipe
+    if ((isLeftSwipe || isRightSwipe) && showSwipeHint) {
+      setShowSwipeHint(false);
+    }
 
     if (isLeftSwipe && galleryImages.length > 1) {
       navigateImage('next');
@@ -266,6 +278,48 @@ const Gallery = () => {
             >
               <p className="font-medium">{selectedImage.alt}</p>
             </motion.div>
+
+            {/* Swipe Hint - Mobile Only */}
+            {galleryImages.length > 1 && showSwipeHint && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                className="md:hidden absolute top-20 left-1/2 -translate-x-1/2 z-20"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="bg-gradient-to-r from-mustard-gold/95 to-mustard-gold/90 backdrop-blur-sm text-forest-green px-6 py-4 rounded-2xl shadow-2xl border-2 border-mustard-gold/50">
+                  <div className="flex items-center gap-3">
+                    {/* Animated Arrows */}
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        animate={{ x: [-5, 5, -5] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <ChevronLeft size={24} className="text-forest-green" />
+                      </motion.div>
+                      <motion.div
+                        animate={{ x: [5, -5, 5] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                      >
+                        <ChevronRight size={24} className="text-forest-green" />
+                      </motion.div>
+                    </div>
+                    <p className="text-sm font-semibold whitespace-nowrap">
+                      Przewiń w prawo lub lewo
+                    </p>
+                  </div>
+                </div>
+                {/* Arrow pointing down */}
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2"
+                >
+                  <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-mustard-gold/90"></div>
+                </motion.div>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
