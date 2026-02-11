@@ -119,26 +119,45 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-br from-forest-green to-forest-green/90 rounded-3xl p-8 md:p-12 shadow-2xl text-white"
+          className="bg-white rounded-3xl overflow-hidden shadow-2xl"
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-center">
-            Nasz Zespół
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed text-white/95">
-            <p>
-              Nasz zespół stanowią najlepsi fachowcy z wieloletnim doświadczeniem, którzy gwarantują solidne wykonanie każdego projektu. 
-              Każdy członek zespołu to specjalista w swojej dziedzinie - od projektantów ogrodów, przez doświadczonych budowlańców, 
-              aż po ekspertów od tarasów i zabudów.
-            </p>
-            <p>
-              Łączymy pasję z profesjonalizmem, tworząc przestrzenie, które zachwycają. Nasze wieloletnie doświadczenie na rynku dolnośląskim 
-              pozwala nam oferować rozwiązania sprawdzone i dopracowane w każdym detalu. Każdy projekt realizujemy z najwyższą starannością, 
-              dbając o jakość materiałów i precyzję wykonania.
-            </p>
-            <p>
-              Gwarantujemy kompleksową obsługę - od pierwszego kontaktu, przez projektowanie, aż po finalną realizację i serwis. 
-              Nasz zespół jest zawsze gotowy, aby odpowiedzieć na Twoje pytania i pomóc w realizacji Twoich marzeń o idealnej przestrzeni wokół domu.
-            </p>
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* Image Section */}
+            <motion.div
+              className="relative h-64 md:h-full min-h-[400px] overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+            >
+              <img
+                src="/img/about/Us.png"
+                alt="Nasz Zespół"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-forest-green/40 via-transparent to-transparent" />
+            </motion.div>
+
+            {/* Content Section */}
+            <div className="bg-gradient-to-br from-forest-green to-forest-green/90 p-8 md:p-12 text-white flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+                Nasz Zespół
+              </h2>
+              <div className="space-y-4 text-lg leading-relaxed text-white/95">
+                <p>
+                  Nasz zespół stanowią najlepsi fachowcy z wieloletnim doświadczeniem, którzy gwarantują solidne wykonanie każdego projektu. 
+                  Każdy członek zespołu to specjalista w swojej dziedzinie - od projektantów ogrodów, przez doświadczonych budowlańców, 
+                  aż po ekspertów od tarasów i zabudów.
+                </p>
+                <p>
+                  Łączymy pasję z profesjonalizmem, tworząc przestrzenie, które zachwycają. Nasze wieloletnie doświadczenie na rynku dolnośląskim 
+                  pozwala nam oferować rozwiązania sprawdzone i dopracowane w każdym detalu. Każdy projekt realizujemy z najwyższą starannością, 
+                  dbając o jakość materiałów i precyzję wykonania.
+                </p>
+                <p>
+                  Gwarantujemy kompleksową obsługę - od pierwszego kontaktu, przez projektowanie, aż po finalną realizację i serwis. 
+                  Nasz zespół jest zawsze gotowy, aby odpowiedzieć na Twoje pytania i pomóc w realizacji Twoich marzeń o idealnej przestrzeni wokół domu.
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
