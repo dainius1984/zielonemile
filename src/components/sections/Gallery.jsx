@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   // Gallery images from portfolio categories
   const galleryImages = [
@@ -67,6 +69,50 @@ const Gallery = () => {
     document.body.style.overflow = 'unset';
   };
 
+  const getCurrentImageIndex = () => {
+    return galleryImages.findIndex(img => img.id === selectedImage?.id);
+  };
+
+  const navigateImage = (direction) => {
+    const currentIndex = getCurrentImageIndex();
+    if (currentIndex === -1) return;
+
+    let newIndex;
+    if (direction === 'next') {
+      newIndex = (currentIndex + 1) % galleryImages.length;
+    } else {
+      newIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    }
+
+    setSelectedImage(galleryImages[newIndex]);
+  };
+
+  // Swipe handlers for mobile
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && galleryImages.length > 1) {
+      navigateImage('next');
+    }
+    if (isRightSwipe && galleryImages.length > 1) {
+      navigateImage('prev');
+    }
+  };
+
   // Masonry layout helper
   const getMasonryClass = (index) => {
     const patterns = [
@@ -128,7 +174,7 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox with Swipe */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -137,26 +183,89 @@ const Gallery = () => {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
             onClick={closeLightbox}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white hover:text-mustard-gold transition-colors z-10"
+              className="absolute top-4 right-4 text-white hover:text-mustard-gold transition-colors z-10 p-2 hover:bg-white/10 rounded-full"
               aria-label="Close lightbox"
             >
               <X size={32} />
             </motion.button>
+
+            {/* Previous Button - Desktop Only */}
+            {galleryImages.length > 1 && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('prev');
+                }}
+                className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-mustard-gold transition-colors z-10 p-3 hover:bg-white/10 rounded-full"
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={40} />
+              </motion.button>
+            )}
+
+            {/* Next Button - Desktop Only */}
+            {galleryImages.length > 1 && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('next');
+                }}
+                className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-mustard-gold transition-colors z-10 p-3 hover:bg-white/10 rounded-full"
+                aria-label="Next image"
+              >
+                <ChevronRight size={40} />
+              </motion.button>
+            )}
+
+            {/* Image Counter */}
+            {galleryImages.length > 1 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-2 rounded-full"
+              >
+                {getCurrentImageIndex() + 1} / {galleryImages.length}
+              </motion.div>
+            )}
+
             <motion.img
+              key={selectedImage.id}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
               src={selectedImage.src}
               alt={selectedImage.alt}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg touch-none"
               onClick={(e) => e.stopPropagation()}
             />
+
+            {/* Image Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white text-center bg-black/50 px-6 py-3 rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="font-medium">{selectedImage.alt}</p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
