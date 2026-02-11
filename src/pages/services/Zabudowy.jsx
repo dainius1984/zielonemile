@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Shield, Leaf, Award, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { Shield, Wrench, Award, ArrowRight, Image as ImageIcon } from 'lucide-react';
 
-const BudowaTarasow = () => {
-  // Portfolio images for tarasy category
+const Zabudowy = () => {
+  // Portfolio images for zabudowy category
   const portfolioImages = [
-    { id: 1, src: '/img/tarasy/20190527_152218.jpg', alt: 'Taras' },
-    { id: 2, src: '/img/tarasy/20191009_115738.jpg', alt: 'Taras' },
-    { id: 3, src: '/img/tarasy/20191022_134147.jpg', alt: 'Taras' },
-    { id: 4, src: '/img/tarasy/20191218_114130.jpg', alt: 'Taras' },
-    { id: 5, src: '/img/tarasy/20200908_110915.jpg', alt: 'Taras' },
-    { id: 6, src: '/img/tarasy/20230715_182524.jpg', alt: 'Taras' },
+    { id: 1, src: '/img/zabudowy/zabudowy na auta.jpg', alt: 'Zabudowy na Auta' },
+    { id: 2, src: '/img/zabudowy/20230111_150559.jpg', alt: 'Zabudowa' },
+    { id: 3, src: '/img/zabudowy/Zabudowa śmietnik (1).jpg', alt: 'Zabudowa Śmietnik' },
+    { id: 4, src: '/img/zabudowy/20250507_075527.jpg', alt: 'Zabudowa' },
+    { id: 5, src: '/img/zabudowy/20250814_193933.jpg', alt: 'Zabudowa' },
+    { id: 6, src: '/img/zabudowy/20190327_163606.jpg', alt: 'Zabudowa' },
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -20,17 +20,17 @@ const BudowaTarasow = () => {
     {
       icon: <Shield className="w-8 h-8" />,
       title: 'Solidne',
-      description: 'Najwyższej jakości materiały - modrzew, kompozyt, poliwęglan - zapewniające trwałość przez lata'
+      description: 'Najwyższej jakości materiały i konstrukcje zapewniające trwałość i odporność na warunki atmosferyczne'
     },
     {
-      icon: <Leaf className="w-8 h-8" />,
-      title: 'Ekologiczne',
-      description: 'Przyjazne środowisku materiały i zrównoważone rozwiązania dla Twojego tarasu'
+      icon: <Wrench className="w-8 h-8" />,
+      title: 'Funkcjonalne',
+      description: 'Od śmietników po przestronne zabudowy na auta - rozwiązania dopasowane do Twoich potrzeb'
     },
     {
       icon: <Award className="w-8 h-8" />,
-      title: 'Profesjonalne',
-      description: 'Doświadczenie i precyzja w każdym detalu - od projektu po finalną realizację'
+      title: 'Stylowe',
+      description: 'Eleganckie projekty, które nie tylko spełniają swoje zadanie, ale także dodają charakteru Twojej posesji'
     }
   ];
 
@@ -45,11 +45,12 @@ const BudowaTarasow = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-forest-green mb-6">
-            Budowa Tarasów
+            Zabudowy
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Tworzymy tarasy, które są przedłużeniem Twojego domu - przestrzenie, gdzie elegancja spotyka się z funkcjonalnością. 
-            Wykorzystujemy najwyższej jakości materiały: modrzew, kompozyt, poliwęglan komorowy i lity, zapewniając trwałość i piękno przez lata.
+            Tworzymy funkcjonalne i stylowe zabudowy, które organizują przestrzeń wokół Twojego domu. 
+            Od eleganckich śmietników, przez praktyczne pomieszczenia gospodarcze, aż po przestronne zabudowy na auta - 
+            każda realizacja łączy w sobie funkcjonalność z estetyką.
           </p>
         </motion.div>
 
@@ -94,7 +95,7 @@ const BudowaTarasow = () => {
               Nasze Realizacje
             </h2>
             <Link
-              to="/portfolio#tarasy"
+              to="/portfolio#zabudowy"
               className="inline-flex items-center gap-2 px-6 py-3 bg-mustard-gold text-forest-green font-semibold rounded-full hover:bg-mustard-gold/90 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <ImageIcon className="w-5 h-5" />
@@ -133,21 +134,22 @@ const BudowaTarasow = () => {
           className="bg-white rounded-3xl p-8 md:p-12 shadow-xl"
         >
           <h2 className="text-3xl font-serif font-bold text-forest-green mb-6">
-            Dlaczego warto wybrać nasze tarasy?
+            Szeroki zakres zabudów
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold text-forest-green mb-3">Materiały najwyższej jakości</h3>
+              <h3 className="text-xl font-semibold text-forest-green mb-3">Zabudowy śmietnikowe</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Oferujemy tarasy z modrzewia syberyjskiego, kompozytu oraz poliwęglanu komorowego i litego. 
-                Każdy materiał jest starannie wyselekcjonowany, aby zapewnić maksymalną trwałość i odporność na warunki atmosferyczne.
+                Eleganckie rozwiązania dla codziennych potrzeb. Projektujemy zabudowy śmietnikowe, które nie tylko 
+                organizują przestrzeń, ale także dodają estetyki Twojej posesji. Od prostych konstrukcji po zaawansowane 
+                rozwiązania z automatycznym otwieraniem.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-forest-green mb-3">Indywidualne podejście</h3>
+              <h3 className="text-xl font-semibold text-forest-green mb-3">Zabudowy na auta</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Każdy taras projektujemy indywidualnie, dopasowując go do architektury Twojego domu i Twoich potrzeb. 
-                Od małych przytulnych przestrzeni po rozległe tarasy z zadaszeniem - tworzymy rozwiązania idealne dla Ciebie.
+                Przestronne i funkcjonalne zabudowy na auta, które chronią Twój pojazd przed warunkami atmosferycznymi. 
+                Projektujemy je indywidualnie, uwzględniając liczbę pojazdów, dostępną przestrzeń i styl Twojego domu.
               </p>
             </div>
           </div>
@@ -177,4 +179,4 @@ const BudowaTarasow = () => {
   );
 };
 
-export default BudowaTarasow;
+export default Zabudowy;

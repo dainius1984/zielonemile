@@ -11,7 +11,8 @@ import Ogrody from "./pages/portfolio/Ogrody";
 import PrzedPo from "./pages/portfolio/PrzedPo";
 import ProjektowanieOgrodow from "./pages/services/ProjektowanieOgrodow";
 import BudowaTarasow from "./pages/services/BudowaTarasow";
-import Nawadnianie from "./pages/services/Nawadnianie";
+import PlaceZabaw from "./pages/services/PlaceZabaw";
+import Zabudowy from "./pages/services/Zabudowy";
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
       <Route path="/uslugi" element={<Layout><Services /></Layout>} />
       <Route path="/uslugi/projektowanie-ogrodow" element={<Layout><ProjektowanieOgrodow /></Layout>} />
       <Route path="/uslugi/budowa-tarasow" element={<Layout><BudowaTarasow /></Layout>} />
-      <Route path="/uslugi/nawadnianie" element={<Layout><Nawadnianie /></Layout>} />
+      <Route path="/uslugi/plac-zabaw" element={<Layout><PlaceZabaw /></Layout>} />
+      <Route path="/uslugi/zabudowy" element={<Layout><Zabudowy /></Layout>} />
       <Route path="*" element={<Layout><Home /></Layout>} />
       </Routes>
     </>
