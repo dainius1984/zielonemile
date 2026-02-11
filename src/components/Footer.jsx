@@ -33,7 +33,15 @@ const Footer = () => {
             </motion.div>
           </Link>
           <p className="text-forest-green/70 text-sm text-center md:text-right font-medium">
-            © {new Date().getFullYear()} Zielone Mile. Wszelkie prawa zastrzeżone.
+            © {new Date().getFullYear()} Zielone Mile. Wszelkie prawa zastrzeżone. |{' '}
+            <a 
+              href="https://www.stalowewitryny.pl" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-forest-green/70 hover:text-mustard-gold transition-colors duration-300 underline decoration-forest-green/30 hover:decoration-mustard-gold"
+            >
+              Projekt i realizacja: stalowewitryny.pl
+            </a>
           </p>
         </motion.div>
       </div>
