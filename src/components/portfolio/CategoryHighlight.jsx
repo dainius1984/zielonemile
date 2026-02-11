@@ -35,18 +35,6 @@ const CategoryHighlight = ({ categoryInfo }) => {
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-mustard-gold/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-mustard-gold/10 rounded-full blur-3xl translate-y-20 -translate-x-20" />
-              
-              {/* Icon Badge */}
-              {categoryInfo.icon && (
-                <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                  className="absolute top-6 left-6 text-6xl md:text-7xl opacity-90"
-                >
-                  {categoryInfo.icon}
-                </motion.div>
-              )}
             </motion.div>
 
             {/* Content Section */}

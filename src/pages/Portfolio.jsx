@@ -26,40 +26,35 @@ const Portfolio = () => {
       description: 'Tworzymy tarasy, które są przedłużeniem Twojego domu - przestrzenie, gdzie elegancja spotyka się z funkcjonalnością. Wykorzystujemy najwyższej jakości materiały: modrzew, kompozyt, poliwęglan komorowy i lity, zapewniając trwałość i piękno przez lata.',
       highlightImage: '/img/tarasy/Modrzew gładki bezbarwny.jpg',
       highlightTitle: 'Modrzew Gładki Bezbarwny',
-      highlightDescription: 'Naturalne piękno drewna w najczystszej formie',
-      icon: '🌳'
+      highlightDescription: 'Naturalne piękno drewna w najczystszej formie'
     },
     'ogrody': {
       title: 'Ogrody',
       description: 'Projektujemy i tworzymy ogrody, które są oazą spokoju i harmonii. Każdy ogród to unikalna kompozycja roślin, ścieżek i elementów małej architektury, tworząca przestrzeń idealną do relaksu i kontemplacji.',
       highlightImage: '/img/ogrody/nowoczesny design.jpg',
       highlightTitle: 'Nowoczesny Design',
-      highlightDescription: 'Gdzie współczesna estetyka spotyka się z naturą - minimalistyczne formy, czyste linie i harmonijne kompozycje roślinne',
-      icon: '🌿'
+      highlightDescription: 'Gdzie współczesna estetyka spotyka się z naturą - minimalistyczne formy, czyste linie i harmonijne kompozycje roślinne'
     },
     'bramy-i-garaze': {
       title: 'Bramy i Garaże',
       description: 'Bezpieczeństwo i funkcjonalność w jednym. Projektujemy i montujemy bramy oraz garaże, które nie tylko chronią, ale także dodają charakteru Twojej posesji. Nowoczesne rozwiązania techniczne spotykają się z estetyką.',
       highlightImage: '/img/bramy i garaze/stylowe garaze.jpg',
       highlightTitle: 'Stylowe Garaże',
-      highlightDescription: 'Gdzie funkcjonalność spotyka się z elegancją - nowoczesne rozwiązania architektoniczne dla Twojej posesji',
-      icon: '🚪'
+      highlightDescription: 'Gdzie funkcjonalność spotyka się z elegancją - nowoczesne rozwiązania architektoniczne dla Twojej posesji'
     },
     'plac-zabaw': {
       title: 'Place Zabaw',
       description: 'Tworzymy bezpieczne i ekologiczne place zabaw, gdzie dzieci mogą rozwijać się poprzez zabawę. Wykorzystujemy wyłącznie certyfikowane, przyjazne środowisku materiały, zapewniając najwyższe standardy bezpieczeństwa dla najmłodszych.',
       highlightImage: '/img/plac zabaw/nowoczesny plac zabaw.jpg',
       highlightTitle: 'Nowoczesny Plac Zabaw',
-      highlightDescription: 'Bezpieczne, ekologiczne materiały dla dzieci - gdzie zabawa spotyka się z bezpieczeństwem i troską o środowisko',
-      icon: '🎠'
+      highlightDescription: 'Bezpieczne, ekologiczne materiały dla dzieci - gdzie zabawa spotyka się z bezpieczeństwem i troską o środowisko'
     },
     'zabudowy': {
       title: 'Zabudowy',
       description: 'Funkcjonalne zabudowy gospodarcze, które organizują przestrzeń wokół Twojego domu. Od śmietników po pomieszczenia gospodarcze - każda zabudowa jest zaprojektowana tak, aby była praktyczna i estetyczna.',
       highlightImage: '/img/zabudowy/Zabudowa śmietnik (1).jpg',
       highlightTitle: 'Zabudowa Śmietnik',
-      highlightDescription: 'Eleganckie rozwiązania dla codziennych potrzeb - funkcjonalność w pięknym opakowaniu',
-      icon: '🏗️'
+      highlightDescription: 'Eleganckie rozwiązania dla codziennych potrzeb - funkcjonalność w pięknym opakowaniu'
     }
   };
 
