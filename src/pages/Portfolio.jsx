@@ -435,38 +435,38 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 30 }}
-                className="md:hidden absolute top-20 left-1/2 -translate-x-1/2 z-20"
+                className="md:hidden fixed top-24 left-1/2 -translate-x-1/2 z-[60] px-4 w-full max-w-[calc(100%-2rem)]"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="bg-gradient-to-r from-mustard-gold/95 to-mustard-gold/90 backdrop-blur-sm text-forest-green px-6 py-4 rounded-2xl shadow-2xl border-2 border-mustard-gold/50">
-                  <div className="flex items-center gap-3">
+                <div className="bg-gradient-to-r from-mustard-gold/95 to-mustard-gold/90 backdrop-blur-sm text-forest-green px-4 py-3 rounded-2xl shadow-2xl border-2 border-mustard-gold/50 mx-auto">
+                  <div className="flex items-center gap-2 flex-wrap justify-center">
                     {/* Animated Arrows */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <motion.div
                         animate={{ x: [-5, 5, -5] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                       >
-                        <ChevronLeft size={24} className="text-forest-green" />
+                        <ChevronLeft size={20} className="text-forest-green" />
                       </motion.div>
                       <motion.div
                         animate={{ x: [5, -5, 5] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
                       >
-                        <ChevronRight size={24} className="text-forest-green" />
+                        <ChevronRight size={20} className="text-forest-green" />
                       </motion.div>
                     </div>
-                    <p className="text-sm font-semibold whitespace-nowrap">
+                    <p className="text-xs sm:text-sm font-semibold text-center">
                       Przewiń w prawo lub lewo
                     </p>
                   </div>
                 </div>
                 {/* Arrow pointing down */}
                 <motion.div
-                  animate={{ y: [0, 8, 0] }}
+                  animate={{ y: [0, 6, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-1"
                 >
-                  <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-mustard-gold/90"></div>
+                  <div className="w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-mustard-gold/90"></div>
                 </motion.div>
               </motion.div>
             )}
