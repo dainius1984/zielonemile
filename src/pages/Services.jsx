@@ -5,9 +5,12 @@ import { ArrowRight } from 'lucide-react';
 
 const Services = () => {
   const services = [
-    { id: 1, title: 'Projektowanie Ogrodów', slug: 'projektowanie-ogrodow', description: 'Kompleksowe projekty ogrodów' },
-    { id: 2, title: 'Budowa Tarasów', slug: 'budowa-tarasow', description: 'Profesjonalna budowa tarasów' },
-    { id: 3, title: 'Nawadnianie Automatyczne', slug: 'nawadnianie', description: 'Systemy automatycznego nawadniania' },
+    { id: 1, title: 'Tarasy', slug: 'budowa-tarasow', description: 'Profesjonalna budowa tarasów z najwyższej jakości materiałów' },
+    { id: 2, title: 'Ogrody', slug: 'projektowanie-ogrodow', description: 'Kompleksowe projekty i realizacje ogrodów' },
+    { id: 3, title: 'Bramy i Garaże', slug: 'bramy-i-garaze', description: 'Budowa i montaż bram oraz garaży' },
+    { id: 4, title: 'Place Zabaw', slug: 'plac-zabaw', description: 'Projektowanie i budowa bezpiecznych, ekologicznych placów zabaw dla dzieci' },
+    { id: 5, title: 'Zabudowy', slug: 'zabudowy', description: 'Zabudowy gospodarcze, śmietniki i inne konstrukcje' },
+    { id: 6, title: 'Nawadnianie Automatyczne', slug: 'nawadnianie', description: 'Systemy automatycznego nawadniania' },
   ];
 
   return (

@@ -5,55 +5,55 @@ import { X } from 'lucide-react';
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Sample gallery images - replace with actual images
+  // Gallery images from portfolio categories
   const galleryImages = [
     {
       id: 1,
-      src: '/img/main/1.jpg',
-      alt: 'Taras 1',
+      src: '/img/tarasy/20200908_110915.jpg',
+      alt: 'Taras',
       category: 'tarasy',
     },
     {
       id: 2,
-      src: '/img/main/2.jpg',
-      alt: 'Taras 2',
+      src: '/img/tarasy/20230715_182524.jpg',
+      alt: 'Taras',
       category: 'tarasy',
     },
     {
       id: 3,
-      src: '/img/main/3.jpg',
-      alt: 'Taras 3',
-      category: 'tarasy',
+      src: '/img/ogrody/Ogrody (1).jpg',
+      alt: 'Ogród',
+      category: 'ogrody',
     },
     {
       id: 4,
-      src: '/img/about/1.jpg',
-      alt: 'Ogród 1',
+      src: '/img/ogrody/Ogrody (5).jpg',
+      alt: 'Ogród',
       category: 'ogrody',
     },
     {
       id: 5,
-      src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-      alt: 'Taras 4',
-      category: 'tarasy',
+      src: '/img/bramy i garaze/20210309_110516.jpg',
+      alt: 'Brama i Garaż',
+      category: 'bramy-i-garaze',
     },
     {
       id: 6,
-      src: '/img/main/3.jpg',
-      alt: 'Ogród 2',
-      category: 'ogrody',
+      src: '/img/plac zabaw/20220423_142644.jpg',
+      alt: 'Plac Zabaw',
+      category: 'plac-zabaw',
     },
     {
       id: 7,
-      src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-      alt: 'Taras 5',
-      category: 'tarasy',
+      src: '/img/zabudowy/20230111_150559.jpg',
+      alt: 'Zabudowa',
+      category: 'zabudowy',
     },
     {
       id: 8,
-      src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
-      alt: 'Ogród 3',
-      category: 'ogrody',
+      src: '/img/tarasy/20240709_093355.jpg',
+      alt: 'Taras',
+      category: 'tarasy',
     },
   ];
 
