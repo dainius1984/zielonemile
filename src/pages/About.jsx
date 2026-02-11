@@ -90,7 +90,7 @@ const About = () => {
               transition={{ duration: 0.4 }}
             >
               <img
-                src="/img/about/1.jpg"
+                src="/img/about/story.png"
                 alt="Nasza Historia"
                 className="w-full h-full object-cover"
               />
