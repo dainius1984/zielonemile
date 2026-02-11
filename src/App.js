@@ -8,7 +8,6 @@ import Portfolio from "./pages/Portfolio";
 import Services from "./pages/Services";
 import Tarasy from "./pages/portfolio/Tarasy";
 import Ogrody from "./pages/portfolio/Ogrody";
-import PrzedPo from "./pages/portfolio/PrzedPo";
 import ProjektowanieOgrodow from "./pages/services/ProjektowanieOgrodow";
 import BudowaTarasow from "./pages/services/BudowaTarasow";
 import PlaceZabaw from "./pages/services/PlaceZabaw";
@@ -24,7 +23,6 @@ function App() {
       <Route path="/portfolio" element={<Layout><Portfolio /></Layout>} />
       <Route path="/portfolio/tarasy" element={<Layout><Tarasy /></Layout>} />
       <Route path="/portfolio/ogrody" element={<Layout><Ogrody /></Layout>} />
-      <Route path="/portfolio/przed-po" element={<Layout><PrzedPo /></Layout>} />
       <Route path="/uslugi" element={<Layout><Services /></Layout>} />
       <Route path="/uslugi/projektowanie-ogrodow" element={<Layout><ProjektowanieOgrodow /></Layout>} />
       <Route path="/uslugi/budowa-tarasow" element={<Layout><BudowaTarasow /></Layout>} />
