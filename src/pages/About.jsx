@@ -58,25 +58,47 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-3xl p-8 md:p-12 shadow-xl mb-16"
+          className="bg-white rounded-3xl overflow-hidden shadow-xl mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
-            Nasza Historia
-          </h2>
-          <div className="space-y-4 text-gray-700 leading-relaxed text-lg">
-            <p>
-              Od ponad 15 lat działamy na Dolnym Śląsku, specjalizując się w kompleksowych usługach ogrodniczych i budowlanych. 
-              Tworzymy tarasy, ogrody, place zabaw oraz zabudowy - każdy projekt to unikalne połączenie funkcjonalności i estetyki.
-            </p>
-            <p>
-              Nasza pasja do natury i dbałość o każdy detal sprawiają, że tworzymy przestrzenie, które nie tylko zachwycają, 
-              ale także stają się miejscem relaksu i odpoczynku dla całej rodziny. Każda realizacja to efekt współpracy z klientem, 
-              indywidualnego podejścia i wieloletniego doświadczenia.
-            </p>
-            <p>
-              Dzięki naszemu zaangażowaniu i profesjonalizmowi, staliśmy się uznanym partnerem dla setek zadowolonych klientów 
-              na terenie Dolnego Śląska. Każdy projekt traktujemy indywidualnie, dopasowując rozwiązania do potrzeb i stylu życia naszych klientów.
-            </p>
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* Content Section */}
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
+                Nasza Historia
+              </h2>
+              <div className="space-y-4 text-gray-700 leading-relaxed text-lg">
+                <p>
+                  Od ponad 15 lat działamy na Dolnym Śląsku, specjalizując się w kompleksowych usługach ogrodniczych i budowlanych. 
+                  Tworzymy tarasy, ogrody, place zabaw oraz zabudowy - każdy projekt to unikalne połączenie funkcjonalności i estetyki.
+                </p>
+                <p>
+                  Nasza pasja do natury i dbałość o każdy detal sprawiają, że tworzymy przestrzenie, które nie tylko zachwycają, 
+                  ale także stają się miejscem relaksu i odpoczynku dla całej rodziny. Każda realizacja to efekt współpracy z klientem, 
+                  indywidualnego podejścia i wieloletniego doświadczenia.
+                </p>
+                <p>
+                  Dzięki naszemu zaangażowaniu i profesjonalizmowi, staliśmy się uznanym partnerem dla setek zadowolonych klientów 
+                  na terenie Dolnego Śląska. Każdy projekt traktujemy indywidualnie, dopasowując rozwiązania do potrzeb i stylu życia naszych klientów.
+                </p>
+              </div>
+            </div>
+
+            {/* Image Section */}
+            <motion.div
+              className="relative h-64 md:h-full min-h-[400px] overflow-hidden order-first md:order-last"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+            >
+              <img
+                src="/img/about/1.jpg"
+                alt="Nasza Historia"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-forest-green/40 via-transparent to-transparent" />
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-mustard-gold/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-mustard-gold/10 rounded-full blur-3xl translate-y-20 -translate-x-20" />
+            </motion.div>
           </div>
         </motion.div>
 
