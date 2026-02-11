@@ -1,13 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import PortfolioHeader from '../components/portfolio/PortfolioHeader';
 import CategoryFilters from '../components/portfolio/CategoryFilters';
 import CategoryHighlight from '../components/portfolio/CategoryHighlight';
 import PortfolioGrid from '../components/portfolio/PortfolioGrid';
 
 const Portfolio = () => {
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('all');
+
+  // Handle hash navigation from Services page
+  useEffect(() => {
+    if (location.hash) {
+      const categoryFromHash = location.hash.replace('#', '');
+      // Map portfolio categories
+      const categoryMap = {
+        'tarasy': 'tarasy',
+        'ogrody': 'ogrody',
+        'plac-zabaw': 'plac-zabaw',
+        'zabudowy': 'zabudowy'
+      };
+      
+      if (categoryMap[categoryFromHash]) {
+        setActiveCategory(categoryMap[categoryFromHash]);
+        // Scroll to filters after a short delay
+        setTimeout(() => {
+          const filtersElement = document.querySelector('[data-category-filters]');
+          if (filtersElement) {
+            filtersElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    }
+  }, [location.hash]);
   const [imageDimensions, setImageDimensions] = useState({});
 
   const categories = [
@@ -302,7 +329,7 @@ const Portfolio = () => {
           >
             <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
               Odkryj nasze kompleksowe realizacje - od eleganckich tarasów przez harmonijne ogrody, 
-              bezpieczne place zabaw, funkcjonalne bramy i garaże, aż po praktyczne zabudowy gospodarcze. 
+              bezpieczne place zabaw, aż po praktyczne zabudowy gospodarcze. 
               Każdy projekt to połączenie pasji, doświadczenia i najwyższej jakości materiałów.
             </p>
           </motion.div>

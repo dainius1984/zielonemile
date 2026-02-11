@@ -20,7 +20,7 @@ const About = () => {
             </h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               Od ponad 10 lat specjalizujemy się w kompleksowych usługach ogrodniczych i budowlanych. 
-              Oferujemy profesjonalne realizacje tarasów, ogrodów, bram i garaży, placów zabaw oraz zabudów gospodarczych. 
+              Oferujemy profesjonalne realizacje tarasów, ogrodów, placów zabaw oraz zabudów gospodarczych. 
               Każdy projekt to unikalne połączenie funkcjonalności i estetyki.
             </p>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
