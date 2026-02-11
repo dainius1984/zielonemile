@@ -4,6 +4,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [imageDimensions, setImageDimensions] = useState({});
 
   const categories = [
     { id: 'all', label: 'Wszystkie', slug: 'all' },
@@ -174,18 +175,69 @@ const Portfolio = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [selectedImage, filteredImages]);
 
-  // Masonry layout helper - varied sizes for better UX
-  const getMasonryClass = (index) => {
-    const patterns = [
-      '', // normal size
-      'md:row-span-2', // taller
-      '', // normal size
-      'md:col-span-2', // wider
-      '', // normal size
-      'md:row-span-2', // taller
-      '', // normal size
-    ];
-    return patterns[index % patterns.length];
+  // Load image dimensions for better layout calculation
+  useEffect(() => {
+    const loadImageDimensions = () => {
+      const dimensions = {};
+      filteredImages.forEach((image) => {
+        const img = new Image();
+        img.onload = () => {
+          dimensions[image.id] = {
+            width: img.naturalWidth,
+            height: img.naturalHeight,
+            aspectRatio: img.naturalWidth / img.naturalHeight
+          };
+          setImageDimensions(prev => ({ ...prev, ...dimensions }));
+        };
+        img.src = image.src;
+      });
+    };
+    
+    loadImageDimensions();
+  }, [filteredImages]);
+
+  // Improved masonry layout helper - better distribution to minimize gaps
+  const getMasonryClass = (index, total) => {
+    const image = filteredImages[index];
+    const dims = imageDimensions[image.id];
+    
+    // If we have dimensions, use aspect ratio to determine best size
+    if (dims) {
+      const aspectRatio = dims.aspectRatio;
+      // Portrait images (tall) - make them span 2 rows
+      if (aspectRatio < 0.75) {
+        return 'md:row-span-2';
+      }
+      // Landscape images (wide) - make them span 2 columns
+      if (aspectRatio > 1.5) {
+        return 'md:col-span-2';
+      }
+      // Very wide images - span both
+      if (aspectRatio > 2.0) {
+        return 'md:col-span-2 md:row-span-2';
+      }
+    }
+    
+    // Fallback to intelligent pattern based on position
+    const position = index % 12;
+    
+    // Pattern designed to minimize gaps by varying sizes strategically
+    const patterns = {
+      0: '', // normal
+      1: 'md:row-span-2', // tall - fills vertical gaps
+      2: '', // normal
+      3: 'md:col-span-2', // wide - fills horizontal gaps
+      4: '', // normal
+      5: 'md:row-span-2', // tall
+      6: 'md:col-span-2 md:row-span-2', // large - fills both directions
+      7: '', // normal
+      8: 'md:row-span-2', // tall
+      9: '', // normal
+      10: 'md:col-span-2', // wide
+      11: '', // normal
+    };
+    
+    return patterns[position] || '';
   };
 
   const currentCategoryInfo = activeCategory !== 'all' ? categoryInfo[activeCategory] : null;
@@ -356,7 +408,7 @@ const Portfolio = () => {
           </motion.div>
         )}
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid - Dense packing to minimize gaps */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -364,8 +416,11 @@ const Portfolio = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
-            style={{ gridAutoRows: 'minmax(200px, auto)' }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3"
+            style={{ 
+              gridAutoRows: 'minmax(180px, auto)',
+              gridAutoFlow: 'row dense' // Dense packing fills gaps automatically
+            }}
           >
             {filteredImages.map((image, index) => (
               <motion.div
@@ -373,7 +428,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.03 }}
-                className={`relative overflow-hidden rounded-lg cursor-pointer group min-h-[200px] ${getMasonryClass(index)}`}
+                className={`relative overflow-hidden rounded-lg cursor-pointer group min-h-[200px] ${getMasonryClass(index, filteredImages.length)}`}
                 onClick={() => openLightbox(image)}
               >
                 <motion.img
